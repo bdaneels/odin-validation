@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container{
+
+    @apply min-h-screen min-w-full flex flex-col items-center justify-center bg-slate-300
+}
+
+.formcontainer{
+    @apply flex flex-col px-6 py-9 rounded-lg shadow-md justify-center bg-white space-y-10
+}
