@@ -31,25 +31,44 @@ const pageLoad = (() => {
     function showError(event){
         console.log('showerror called')
        let element = document.getElementById(event.target.id)
-       let span = element.nextSibling
-       let data = span.getAttribute('data')
        
-       if(element.validity.valueMissing || !element.validity.valid){
-        span.textContent = `Please enter a valid ${data}`
-       }
+       
+       if(element.id==="password"|| element.id==="passwordc"){
+            let password = document.getElementById('password')
+            let password2 = document.getElementById('passwordc')
+            let errorSpan = document.getElementById('passworderror')
+            if ( password2.value !== password.value){
+                let errorSpan = document.getElementById('passworderror')
+                errorSpan.textContent = 'Passwords do not match'
 
-    }
+        }}
+        else if(element.validity.valueMissing || !element.validity.valid){
+            let span = element.nextSibling
+            let data = span.getAttribute('data')
+            span.textContent = `Please enter a valid ${data}`
+        }
+
+        }
+    
 
     function clearError(event){
         let element = document.getElementById(event.target.id)
-        let span = element.nextSibling
-        span.textContent = ''
+        console.log(element)
+        
+        if(element.id === "password"){
+            let errorSpan = document.getElementById("passworderror")
+            errorSpan.textContent = ''
+        }else {
+            let span = element.nextSibling
+            span.textContent = ''
+        }
+        
     }
     return{
         showError,
         clearError
     }
- } )()
+    } )()
 
  const validityHandler = (() => {
     function valid (event){
@@ -63,9 +82,11 @@ const pageLoad = (() => {
         let element = document.getElementById(event.target.id)
 
         if(element.id === 'password' || element.id === 'passwordc'){
-            if (!password.value === "" || !password2 === ''){
+            
+            if ( password2.value !== password.value){
                 console.log('passwords do not match')
-            }
+                return false
+            } else {return true}
         }
         else if(!element.validity.valid || element.validity.valueMissing){
             console.log(`invalid ${element}`)
