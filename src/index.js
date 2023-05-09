@@ -54,21 +54,32 @@ const pageLoad = (() => {
  const validityHandler = (() => {
     function valid (event){
         
-        /* let email = document.getElementById('email')
+        let email = document.getElementById('email')
         let zip = document.getElementById('zip')
         let country = document.getElementById('country')
         let password = document.getElementById('password')
-        let password2 = document.getElementById('passwordc') */
+        let password2 = document.getElementById('passwordc')
 
         let element = document.getElementById(event.target.id)
 
-        if(!element.validity.valid || element.validity.valueMissing){
+        if(element.id === 'password' || element.id === 'passwordc'){
+            if (!password.value === "" || !password2 === ''){
+                console.log('passwords do not match')
+            }
+        }
+        else if(!element.validity.valid || element.validity.valueMissing){
             console.log(`invalid ${element}`)
             return false
         } else {return true}
 
         
+        
     }
+
+    function formCheckValid(){
+        let inputs = document.querySelectorAll('input')
+    }
+
     return{
         valid
     }
