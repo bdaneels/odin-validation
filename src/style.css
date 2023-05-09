@@ -12,5 +12,17 @@
 }
 
 label{
-    @apply flex flex-col
+    @apply flex flex-col space-y-4
+}
+
+#emailerror,
+#ziperror,
+#countryerror,
+#passworderror{
+    @apply text-red-500
+}
+
+.invalid{
+    border:  border 2px solid red;
+    background-color: lightpink;
 }

@@ -6,18 +6,21 @@ const pageLoad = (() => {
         form.addEventListener('change', (event)=>{
             if(!validityHandler.valid(event)){
               event.preventDefault()
-              errorHandler.showError(event)
+              let element = document.getElementById(event.target.id)
+              errorHandler.showError(element)
             } else{ 
                 errorHandler.clearError(event)
           
             }
           })
         form.addEventListener('submit', (event)=>{
-            if(true){
+            if(!validityHandler.formCheckValid()){
               event.preventDefault()
               
+              
             } else{ 
-                errorHandler.clearError(event)
+                event.preventDefault()
+                console.log('high Five')
           
             }
           })  
@@ -28,24 +31,25 @@ const pageLoad = (() => {
  } )()
 
  const errorHandler = (() => {
-    function showError(event){
+    function showError(element){
         console.log('showerror called')
-       let element = document.getElementById(event.target.id)
        
        
        if(element.id==="password"|| element.id==="passwordc"){
             let password = document.getElementById('password')
             let password2 = document.getElementById('passwordc')
-            let errorSpan = document.getElementById('passworderror')
+
             if ( password2.value !== password.value){
                 let errorSpan = document.getElementById('passworderror')
                 errorSpan.textContent = 'Passwords do not match'
+                element.classList.add('invalid')
 
         }}
         else if(element.validity.valueMissing || !element.validity.valid){
             let span = element.nextSibling
             let data = span.getAttribute('data')
             span.textContent = `Please enter a valid ${data}`
+            element.classList.add('invalid')
         }
 
         }
@@ -55,12 +59,17 @@ const pageLoad = (() => {
         let element = document.getElementById(event.target.id)
         console.log(element)
         
-        if(element.id === "password"){
+        if(element.id === "password" || element.id === 'passwordc'){
             let errorSpan = document.getElementById("passworderror")
             errorSpan.textContent = ''
+            let password = document.getElementById('password')
+            let password2 = document.getElementById('passwordc')
+            password.classList.remove('invalid')
+            password2.classList.remove('invalid')
         }else {
             let span = element.nextSibling
             span.textContent = ''
+            element.classList.remove('invalid')
         }
         
     }
@@ -73,9 +82,6 @@ const pageLoad = (() => {
  const validityHandler = (() => {
     function valid (event){
         
-        let email = document.getElementById('email')
-        let zip = document.getElementById('zip')
-        let country = document.getElementById('country')
         let password = document.getElementById('password')
         let password2 = document.getElementById('passwordc')
 
@@ -89,7 +95,7 @@ const pageLoad = (() => {
             } else {return true}
         }
         else if(!element.validity.valid || element.validity.valueMissing){
-            console.log(`invalid ${element}`)
+            console.log(`invalid ${element.id}`)
             return false
         } else {return true}
 
@@ -99,10 +105,26 @@ const pageLoad = (() => {
 
     function formCheckValid(){
         let inputs = document.querySelectorAll('input')
+        for(let element of inputs){
+            console.log(element)
+            if(element.id === 'password' || element.id === 'passwordc'){
+            
+                if ( password2.value !== password.value){
+                    console.log('passwords do not match')
+                    return false
+                }
+            }
+            else if(!element.validity.valid || element.validity.valueMissing || element.value === ''){
+                errorHandler.showError(element)
+                return false
+            } else {
+                return true}
+        }
     }
 
     return{
-        valid
+        valid,
+        formCheckValid
     }
  } )()
 
