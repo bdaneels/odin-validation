@@ -38,13 +38,16 @@ const pageLoad = (() => {
        if(element.id==="password"|| element.id==="passwordc"){
             let password = document.getElementById('password')
             let password2 = document.getElementById('passwordc')
-
+            let errorSpan = document.getElementById('passworderror')
             if ( password2.value !== password.value){
-                let errorSpan = document.getElementById('passworderror')
                 errorSpan.textContent = 'Passwords do not match'
+                element.classList.add('invalid')}
+                else if (password.validity.valueMissing|| password2.validty.valueMissing){
+                errorSpan.textContent = 'Please enter a password'
                 element.classList.add('invalid')
-
-        }}
+                }
+            
+            }
         else if(element.validity.valueMissing || !element.validity.valid){
             let span = element.nextSibling
             let data = span.getAttribute('data')
@@ -105,11 +108,17 @@ const pageLoad = (() => {
 
     function formCheckValid(){
         let inputs = document.querySelectorAll('input')
+        let password = document.getElementById('password')
+        let password2 = document.getElementById('passwordc')
         for(let element of inputs){
             console.log(element)
             if(element.id === 'password' || element.id === 'passwordc'){
-            
-                if ( password2.value !== password.value){
+                
+                if( password2.value === '' || password.value === '' ){
+                    errorHandler.showError(element)
+                    return false
+                }
+                else if( password2.value !== password.value){
                     console.log('passwords do not match')
                     return false
                 }
@@ -117,9 +126,9 @@ const pageLoad = (() => {
             else if(!element.validity.valid || element.validity.valueMissing || element.value === ''){
                 errorHandler.showError(element)
                 return false
-            } else {
-                return true}
+            } 
         }
+        return true
     }
 
     return{
