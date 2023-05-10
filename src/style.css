@@ -2,37 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-.container{
-
-    @apply min-h-screen min-w-full flex flex-col items-center justify-center bg-slate-300
+.container {
+  @apply min-h-screen min-w-full flex flex-col items-center justify-center bg-slate-300;
 }
 
-.formcontainer{
-    @apply flex flex-col px-6 py-9 rounded-lg shadow-md justify-center bg-white space-y-10
+.formcontainer {
+  @apply flex flex-col px-6 py-9 rounded-lg shadow-md justify-center bg-white space-y-10;
 }
 
-label{
-    @apply flex flex-col space-y-4
+label {
+  @apply flex flex-col space-y-4;
 }
 
-button[type=submit]{
-    @apply bg-black text-white py-6 rounded-md hover:border hover:border-black hover:bg-white hover:text-black
+button[type="submit"] {
+  @apply bg-black text-white py-6 rounded-md hover:border hover:border-black hover:bg-white hover:text-black;
 }
 
 #emailerror,
 #ziperror,
 #countryerror,
-#passworderror{
-    @apply text-red-500
+#passworderror {
+  @apply text-red-500;
 }
 
-.invalid{
-    border: 2px solid red;
-    background-color: lightpink;
-    
+.invalid {
+  border: 2px solid red;
+  background-color: lightpink;
 }
 
-input{
-    border: 1px solid black;
-    border-radius: 4px;
+input {
+  border: 1px solid black;
+  border-radius: 4px;
 }
